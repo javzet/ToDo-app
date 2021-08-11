@@ -1,0 +1,51 @@
+.navbar {
+  height: 3.8rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba($semi-white, 0.05);
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: $background;
+  z-index: 1000;
+  width: 100%;
+
+  .container {
+    width: min(94%, 1000px);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+    h1 {
+      margin-left: 0.4rem;
+      color: rgba($semi-white, 0.8);
+    }
+  }
+
+  .tool-icons {
+    display: flex;
+    margin-left: auto;
+
+    .tool-icon {
+      width: 1.7rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      margin-left: 0.5rem;
+
+      svg {
+        width: 100%;
+
+        path {
+          fill: rgba($semi-white, 0.8);
+          transition: fill 0.3s ease;
+        }
+
+        &:hover path {
+          fill: rgba($semi-white, 0.6);
+        }
+      }
+    }
+  }
+}
