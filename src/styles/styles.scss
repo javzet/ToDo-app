@@ -4,6 +4,17 @@ $semi-white: #f7f7f7;
 $semi-black: #141414;
 
 $appbar-height: 3.8rem;
+$appbar-border-style: 1px solid rgba($semi-white, 0.05);
+
+:root {
+  font-size: 14px;
+  @media (min-width: 481px) {
+    font-size: 15px;
+  }
+  @media (min-width: 769px) {
+    font-size: 16px;
+  }
+}
 
 *,
 *::before,
@@ -39,8 +50,21 @@ button {
 @import "./components/form";
 
 .content {
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
+  width: min(96%, 1000px);
+  margin: 0 auto;
+
+  height: calc(100vh - #{$appbar-height});
+
+  @media (min-width: 481px) {
+    width: min(98%, 1000px);
+    padding: 2rem 1rem;
+  }
+  @media (min-width: 769px) {
+    width: min(90%, 1000px);
+    padding: 2rem;
+  }
 }
 
 .no-notes {
@@ -72,54 +96,30 @@ button {
   height: 3.2rem;
   border-radius: 0.4rem;
 
-  width: 85%;
+  width: 95%;
   display: flex;
   align-items: center;
   margin: 0 auto 1rem auto;
 
+  @media (min-width: 481px) {
+    width: 90%;
+  }
+  @media (min-width: 769px) {
+    width: 85%;
+  }
+
   input {
-    width: $main-button;
+    width: 100%;
     height: 100%;
     font-weight: 600;
     font-size: 1.2rem;
     color: rgba($semi-white, 0.4);
-  }
-
-  .option-buttons {
-    height: 100%;
-    width: calc(100% - #{$main-button});
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-
-  .todo-button,
-  .create-button {
-    width: 1.4rem;
-    cursor: pointer;
-    margin-left: 0.6rem;
-
-    &:hover .option-button path {
-      fill: rgba($semi-white, 0.4);
-    }
-  }
-
-  .option-button {
-    width: 100%;
-
-    path {
-      fill: rgba($semi-white, 0.5);
-      transition: fill 0.3s;
-    }
   }
 }
 
 @import "./components/content-data";
 
 .tool-buttons {
-  $background: rgba($semi-white, 0.08);
-  $hover-background: rgba($semi-white, 0.15);
-  $color: rgba($semi-white, 0.7);
   height: $appbar-height;
   z-index: 9999;
   position: fixed;
@@ -127,15 +127,34 @@ button {
   right: 1.6rem;
   display: flex;
   align-items: center;
+  // background-color: $background;
+
+  @media (max-width: 769px) {
+    // width: 85%;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    top: calc(100% - #{$appbar-height});
+    border-top: $appbar-border-style;
+    z-index: 100;
+  }
 
   .tool-button {
+    $background: rgba($semi-white, 0.08);
+    $hover-background: rgba($semi-white, 0.15);
+    $color: rgba($semi-white, 0.7);
+
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: $background;
     border-radius: 0.3rem;
-    padding: 0.6rem 0.8rem;
+    padding: 0.8rem 1rem;
     margin-left: 0.6rem;
+
+    @media (min-width: 769px) {
+      padding: 0.6rem 0.8rem;
+    }
 
     svg {
       width: 1rem;

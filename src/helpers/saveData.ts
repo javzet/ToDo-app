@@ -1,5 +1,6 @@
 import { DataType } from "../types";
 
+// eslint-disable-next-line
 export const saveData = <T extends DataType>(data: DataType) => {
   let dataStored = localStorage.getItem("dataStored");
 

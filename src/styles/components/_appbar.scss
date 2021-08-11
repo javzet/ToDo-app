@@ -2,7 +2,7 @@
   height: $appbar-height;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba($semi-white, 0.05);
+  border-bottom: $appbar-border-style;
   position: sticky;
   top: 0;
   left: 0;

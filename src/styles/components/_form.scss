@@ -1,7 +1,10 @@
 .create-form {
+  $input-height: 5rem;
+  $textarea-height: calc(100% - #{$input-height});
+
   position: relative;
   width: 90%;
-  height: 100vh;
+  height: 100%;
   margin: 0px auto;
 
   input {
@@ -21,7 +24,7 @@
 
   textarea {
     width: 100%;
-    height: calc(100vh - 5rem);
+    height: $textarea-height;
     font-size: 1.4rem;
     padding: 0.8rem 1.6rem;
     color: rgba($semi-white, 0.25);
