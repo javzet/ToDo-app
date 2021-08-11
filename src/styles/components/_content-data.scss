@@ -1,0 +1,46 @@
+.data-grid {
+  padding: 2rem;
+  display: grid;
+  grid-gap: 1rem;
+
+  .data-grid-item {
+    border-radius: 0.6rem;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgba($semi-white, 0.15);
+    width: 100%;
+    height: 200px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    background-color: $background;
+
+    span {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: rgba($semi-white, 0.6);
+      line-height: 1.5;
+    }
+    p {
+      font-size: 0.9rem;
+      color: rgba($semi-white, 0.4);
+    }
+
+    &:hover {
+      border-color: rgba($semi-white, 0.25);
+      span {
+        color: rgba($semi-white, 0.75);
+      }
+      p {
+        color: rgba($semi-white, 0.6);
+      }
+    }
+  }
+}
+
+.data-grid.grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.data-grid.column {
+  grid-template-columns: repeat(1, 1fr);
+}

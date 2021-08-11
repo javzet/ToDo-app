@@ -3,6 +3,6 @@ export const getData = () => {
   if (data !== null) {
     return JSON.parse(data);
   } else {
-    return { notes: [], todos: [] };
+    return [];
   }
 };

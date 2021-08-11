@@ -7,11 +7,11 @@ export const CreateButton = () => {
   const context = useContext(TODO_CONTEXT);
 
   const handleCreateNoteButton = () => {
-    context?.handleNewCreation({ type: "note", active: true });
+    context.setNewCreation({ type: "notes", active: true });
   };
 
   const handleCreateTodoButton = () => {
-    context?.handleNewCreation({ type: "todo", active: true });
+    context.setNewCreation({ type: "todos", active: true });
   };
 
   return (
