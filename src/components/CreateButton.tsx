@@ -22,10 +22,13 @@ export const CreateButton = () => {
         onClick={handleCreateNoteButton}
       />
       <div className="option-buttons">
-        <div className="todo-button" onClick={handleCreateTodoButton}>
+        <div
+          className="todo-button option-button"
+          onClick={handleCreateTodoButton}
+        >
           <TodoTaskButton />
         </div>
-        <div className="create-button">
+        <div className="create-button option-button">
           <ImageButton />
         </div>
       </div>

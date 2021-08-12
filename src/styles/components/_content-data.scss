@@ -58,3 +58,11 @@
 .data-grid.column {
   grid-template-columns: repeat(1, 1fr);
 }
+
+.data-grid.list {
+  grid-template-columns: repeat(1, 1fr);
+
+  .data-grid-item {
+    height: auto;
+  }
+}

@@ -115,9 +115,35 @@ button {
     font-size: 1.2rem;
     color: rgba($semi-white, 0.4);
   }
+
+  .option-buttons {
+    height: 100%;
+    width: calc(100% - #{$main-button});
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .option-button {
+      height: 1.4rem;
+      margin-left: 0.2rem;
+      cursor: pointer;
+
+      svg {
+        path {
+          fill: rgba($semi-white, 0.4);
+          transition: fill ease 0.3s;
+        }
+      }
+
+      &:hover svg path {
+        fill: rgba($semi-white, 0.3);
+      }
+    }
+  }
 }
 
 @import "./components/content-data";
+@import "./components/view-style-icons";
 
 .tool-buttons {
   height: $appbar-height;
