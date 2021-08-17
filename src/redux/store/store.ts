@@ -1,0 +1,25 @@
+import { createStore, combineReducers, compose } from "redux";
+import thunk from "redux-thunk";
+import noteReducer from "../reducers/noteReducer";
+import todoReducer from "../reducers/todoReducer";
+import loadStore from "./loadStore";
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
+  }
+}
+
+const initalStore = loadStore();
+
+const composeEnhancers =
+  (typeof window !== "undefined" &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+
+const reducers = combineReducers({
+  notes: noteReducer,
+  todos: todoReducer,
+});
+
+export const store = createStore(reducers, initalStore);

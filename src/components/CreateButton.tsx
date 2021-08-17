@@ -1,36 +1,24 @@
-import { useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { ImageButton } from "../images/image-button";
 import { TodoTaskButton } from "../images/todo-task-button";
-import { TODO_CONTEXT } from "./context/ToDo-Context";
 
 export const CreateButton = () => {
-  const context = useContext(TODO_CONTEXT);
-
-  const handleCreateNoteButton = () => {
-    context.setNewCreation({ type: "notes", active: true });
-  };
-
-  const handleCreateTodoButton = () => {
-    context.setNewCreation({ type: "todos", active: true });
-  };
+  const history = useHistory();
 
   return (
     <div className="create-note">
       <input
         type="text"
         placeholder="Crear una nota..."
-        onClick={handleCreateNoteButton}
+        onClick={() => history.push("/create/note")}
       />
       <div className="option-buttons">
-        <div
-          className="todo-button option-button"
-          onClick={handleCreateTodoButton}
-        >
+        <Link className="todo-button option-button" to="/create/todo">
           <TodoTaskButton />
-        </div>
-        <div className="create-button option-button">
+        </Link>
+        <Link className="create-button option-button" to="/create">
           <ImageButton />
-        </div>
+        </Link>
       </div>
     </div>
   );

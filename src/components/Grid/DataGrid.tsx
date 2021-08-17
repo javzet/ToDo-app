@@ -1,28 +1,34 @@
 import { CreateButton } from "../CreateButton";
 import { NoDataComponent } from "../NoDataComponent";
-import { DataGridItem } from "./DataGridItem";
+import { DataGridNote } from "./DataGridNote";
 import { StyleIcons } from "./StyleIcons";
-import { DataType } from "../../types";
-import { useRef } from "react";
+import { Note, Todo } from "../../types";
+import { useEffect, useRef } from "react";
+import { DataGridTodo } from "./DataGridTodo";
 
-export const DataGrid = ({ data }: { data: DataType[] }) => {
+interface DataGridProps {
+  data: Note[] | Todo[];
+}
+
+export const DataGrid = ({ data }: DataGridProps) => {
   const gridDataRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    console.log("grid data", gridDataRef.current);
+  }, []);
 
   return (
     <>
-      {data.length > 0 ? (
-        <>
-          <CreateButton />
-          <StyleIcons gridRef={gridDataRef} />
-          <div className="data-grid" id="data-grid" ref={gridDataRef}>
-            {data.map((item: DataType) => (
-              <DataGridItem {...item} key={item.id} />
-            ))}
-          </div>
-        </>
-      ) : (
-        <NoDataComponent />
-      )}
+      <StyleIcons gridRef={gridDataRef} />
+      <div className="data-grid grid" id="data-grid" ref={gridDataRef}>
+        {data.map((item) =>
+          item.type === "note" ? (
+            <DataGridNote {...item} key={item.id} />
+          ) : (
+            <DataGridTodo {...item} key={item.id} />
+          )
+        )}
+      </div>
     </>
   );
 };

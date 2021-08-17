@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { DataType } from "../../types";
+import { DataType } from "../types";
 
 interface ToDosProps {
   generalData: DataType[];

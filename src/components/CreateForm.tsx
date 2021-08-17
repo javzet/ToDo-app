@@ -1,19 +1,26 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import { saveData } from "../helpers/saveData";
+
+import { TODO_CONTEXT } from "../context/ToDo-Context";
+
 import { useForm } from "../hooks/useForm";
-import { ReturnIcon } from "../images/return-icon";
+
+import { saveData } from "../helpers/saveData";
+import { validateCreateForm } from "../helpers/validateForm";
+
 import { TimesCircleIcon } from "../images/times-circle-icon";
+import { ReturnIcon } from "../images/return-icon";
+
 import { ActionType } from "../types";
-import { TODO_CONTEXT } from "./context/ToDo-Context";
+import { useHistory } from "react-router-dom";
 
 export const CreateForm = (props: { type: ActionType }) => {
-  const { noteTitle, noteText, onInputChange, onReset } = useForm({
+  const { noteTitle, noteText, onInputChange, onReset, state } = useForm({
     noteTitle: "",
     noteText: "",
   });
 
-  const todoContext = useContext(TODO_CONTEXT);
+  const history = useHistory();
 
   const handleActionClick = (
     actionType: ActionType,
@@ -26,14 +33,21 @@ export const CreateForm = (props: { type: ActionType }) => {
         type: actionType,
         id: uuid(),
       };
-      todoContext.setGeneralData([...todoContext.generalData, data]);
-      saveData(data);
-      todoContext.setNewCreation({ type: "", active: false });
-      onReset();
+      const validData = validateCreateForm(data);
+      if (validData === true) {
+        saveData(data);
+        onReset();
+        history.push("/");
+      }
     } else {
-      todoContext.setNewCreation({ type: "", active: false });
+      onReset();
+      history.push("/");
     }
   };
+
+  useEffect(() => {
+    console.log({ state });
+  }, [state]);
 
   return (
     <div className="create-form">

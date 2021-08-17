@@ -9,6 +9,10 @@
   background-color: transparent;
   transition: background-color 0.3s ease;
 
+  @media (min-width: 769px) {
+    display: none;
+  }
+
   .hamburger-container {
     width: 72%;
     height: 55%;

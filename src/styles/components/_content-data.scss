@@ -20,14 +20,13 @@
     cursor: pointer;
     background-color: $background;
 
+    overflow: hidden;
+
     span {
-      font-size: 1.1rem;
       font-weight: bold;
       color: rgba($semi-white, 0.6);
-      line-height: 1.5;
     }
     p {
-      font-size: 0.9rem;
       color: rgba($semi-white, 0.4);
     }
 
@@ -48,6 +47,14 @@
 
   .data-grid-item {
     height: 200px;
+
+    span {
+      font-size: 1.4rem;
+      line-height: 1.5;
+    }
+    p {
+      font-size: 0.9rem;
+    }
   }
 
   @media (min-width: 481px) {
@@ -58,17 +65,18 @@
   }
 }
 
-.data-grid.column {
-  grid-template-columns: repeat(2, 1fr);
-  .data-grid-item {
-    height: 200px;
-  }
-}
-
 .data-grid.bars {
   grid-template-columns: repeat(1, 1fr);
 
   .data-grid-item {
-    height: 65px;
+    height: 100px;
+
+    span {
+      font-size: 1.4rem;
+      line-height: 1.3;
+    }
+    p {
+      font-size: 0.84rem;
+    }
   }
 }
