@@ -4,8 +4,12 @@
 
   position: relative;
   width: 90%;
-  height: 100%;
+  height: calc(100% - #{$appbar-height});
   margin: 0px auto;
+
+  @media (min-width: 769px) {
+    height: 100%;
+  }
 
   input {
     color: rgba($semi-white, 0.3);
@@ -23,6 +27,7 @@
   }
 
   textarea {
+    position: relative;
     width: 100%;
     height: $textarea-height;
     font-size: 1.4rem;
@@ -32,5 +37,61 @@
 
   textarea:focus {
     color: rgba($semi-white, 0.6);
+  }
+
+  .tool-buttons {
+    height: $appbar-height;
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    right: 1.6rem;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 769px) {
+      left: 0;
+      right: 0;
+      justify-content: center;
+      top: calc(100% - #{$appbar-height});
+      border-top: $appbar-border-style;
+      z-index: 100;
+    }
+
+    .tool-button {
+      $background: rgba($semi-white, 0.08);
+      $hover-background: rgba($semi-white, 0.15);
+      $color: rgba($semi-white, 0.7);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $background;
+      border-radius: 0.3rem;
+      padding: 0.8rem 1rem;
+      margin-left: 0.6rem;
+
+      @media (min-width: 769px) {
+        padding: 0.6rem 0.8rem;
+      }
+
+      svg {
+        width: 1rem;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        path {
+          fill: $color;
+        }
+      }
+      span {
+        font-size: 0.8rem;
+        color: $color;
+        margin-left: 0.25rem;
+        text-align: center;
+      }
+      &:hover {
+        background-color: $hover-background;
+      }
+    }
   }
 }

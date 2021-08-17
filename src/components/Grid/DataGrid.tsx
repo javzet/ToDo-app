@@ -14,7 +14,7 @@ export const DataGrid = ({ data }: DataGridProps) => {
   const gridDataRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log("grid data", gridDataRef.current);
+    console.log("");
   }, []);
 
   return (

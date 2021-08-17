@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export type CreationProps = {
   active: boolean;
   type: "todo" | "note" | "image" | "";
@@ -8,7 +6,7 @@ export type CreationProps = {
 
 export type TodoTask = { completed: boolean; task: string };
 
-export type ActionType = "notes" | "todos";
+export type ActionType = "note" | "todo";
 
 export type DataType = {
   title: string;

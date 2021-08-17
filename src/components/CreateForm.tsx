@@ -13,12 +13,16 @@ import { ReturnIcon } from "../images/return-icon";
 
 import { ActionType } from "../types";
 import { useHistory } from "react-router-dom";
+import { addNote } from "../redux/actions/noteAction";
+import { useDispatch } from "react-redux";
 
 export const CreateForm = (props: { type: ActionType }) => {
   const { noteTitle, noteText, onInputChange, onReset, state } = useForm({
     noteTitle: "",
     noteText: "",
   });
+
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
@@ -35,7 +39,15 @@ export const CreateForm = (props: { type: ActionType }) => {
       };
       const validData = validateCreateForm(data);
       if (validData === true) {
-        saveData(data);
+        // saveData(data);
+        dispatch(
+          addNote({
+            title: data.title,
+            data: data.data,
+            type: "note",
+            id: data.id,
+          })
+        );
         onReset();
         history.push("/");
       }
@@ -45,9 +57,9 @@ export const CreateForm = (props: { type: ActionType }) => {
     }
   };
 
-  useEffect(() => {
-    console.log({ state });
-  }, [state]);
+  // useEffect(() => {
+  //   console.log({ state });
+  // }, [state]);
 
   return (
     <div className="create-form">
@@ -60,7 +72,7 @@ export const CreateForm = (props: { type: ActionType }) => {
       <textarea
         name=""
         placeholder={
-          props.type === "notes"
+          props.type === "note"
             ? "Escribe una nota..."
             : "Escribe una lista de tareas..."
         }
@@ -73,14 +85,14 @@ export const CreateForm = (props: { type: ActionType }) => {
           onClick={() => handleActionClick(props.type, "save")}
         >
           <ReturnIcon />
-          <span>Guardar {props.type === "notes" ? "nota" : "lista"}</span>
+          <span>Guardar {props.type === "note" ? "nota" : "lista"}</span>
         </button>
         <button
           className="tool-button"
           onClick={() => handleActionClick(props.type, "cancel")}
         >
           <TimesCircleIcon />
-          <span>Descartar {props.type === "notes" ? "nota" : "lista"}</span>
+          <span>Descartar {props.type === "note" ? "nota" : "lista"}</span>
         </button>
       </div>
     </div>

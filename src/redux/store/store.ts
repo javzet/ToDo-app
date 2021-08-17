@@ -1,8 +1,9 @@
-import { createStore, combineReducers, compose } from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import noteReducer from "../reducers/noteReducer";
 import todoReducer from "../reducers/todoReducer";
 import loadStore from "./loadStore";
+import saveState from "./saveState";
 
 declare global {
   interface Window {
@@ -22,4 +23,10 @@ const reducers = combineReducers({
   todos: todoReducer,
 });
 
-export const store = createStore(reducers, initalStore);
+export const store = createStore(
+  reducers,
+  initalStore,
+  composeEnhancers(applyMiddleware(thunk))
+);
+
+store.subscribe(() => saveState(store.getState()));
