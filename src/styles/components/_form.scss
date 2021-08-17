@@ -35,6 +35,19 @@
     color: rgba($semi-white, 0.25);
   }
 
+  textarea::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+
+  textarea::-webkit-scrollbar-track {
+    background: rgba($semi-black, 0.1);
+  }
+
+  textarea::-webkit-scrollbar-thumb {
+    background: rgba($semi-white, 0.08);
+    border-radius: 1rem;
+  }
+
   textarea:focus {
     color: rgba($semi-white, 0.6);
   }

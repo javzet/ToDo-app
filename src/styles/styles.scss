@@ -16,6 +16,19 @@ $appbar-border-style: 1px solid rgba($semi-white, 0.05);
   }
 }
 
+::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba($semi-white, 0.04);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba($semi-white, 0.1);
+  border-radius: 1rem;
+}
+
 *,
 *::before,
 *::after {
