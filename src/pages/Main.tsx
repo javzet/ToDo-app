@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { CreateButton } from "../components/CreateButton";
 import { DataGrid } from "../components/Grid/DataGrid";
+import { NoDataComponent } from "../components/NoDataComponent";
 import { Note, Todo } from "../types";
 
 export default function Main() {
@@ -8,11 +9,15 @@ export default function Main() {
     (state: { notes: Note[]; todos: Todo[] }) => state.notes
   );
   return (
-    <>
-      <div className="content">
-        <CreateButton />
-        <DataGrid data={notes} />
-      </div>
-    </>
+    <div className="content">
+      {notes.length === 0 ? (
+        <NoDataComponent />
+      ) : (
+        <>
+          <CreateButton />
+          <DataGrid data={notes} />
+        </>
+      )}
+    </div>
   );
 }

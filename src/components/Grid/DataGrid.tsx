@@ -1,5 +1,3 @@
-import { CreateButton } from "../CreateButton";
-import { NoDataComponent } from "../NoDataComponent";
 import { DataGridNote } from "./DataGridNote";
 import { StyleIcons } from "./StyleIcons";
 import { Note, Todo } from "../../types";

@@ -1,23 +1,15 @@
-import { useContext, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-
-import { TODO_CONTEXT } from "../context/ToDo-Context";
-
 import { useForm } from "../hooks/useForm";
-
-import { saveData } from "../helpers/saveData";
 import { validateCreateForm } from "../helpers/validateForm";
-
 import { TimesCircleIcon } from "../images/times-circle-icon";
 import { ReturnIcon } from "../images/return-icon";
-
 import { ActionType } from "../types";
 import { useHistory } from "react-router-dom";
 import { addNote } from "../redux/actions/noteAction";
 import { useDispatch } from "react-redux";
 
 export const CreateForm = (props: { type: ActionType }) => {
-  const { noteTitle, noteText, onInputChange, onReset, state } = useForm({
+  const { noteTitle, noteText, onInputChange, onReset } = useForm({
     noteTitle: "",
     noteText: "",
   });
@@ -39,7 +31,6 @@ export const CreateForm = (props: { type: ActionType }) => {
       };
       const validData = validateCreateForm(data);
       if (validData === true) {
-        // saveData(data);
         dispatch(
           addNote({
             title: data.title,
