@@ -11,7 +11,7 @@
     height: 100%;
   }
 
-  input {
+  .create-form-title {
     color: rgba($semi-white, 0.3);
     font-weight: bolder;
     font-size: 2.6rem;
@@ -22,7 +22,7 @@
     transition: color 0.3s ease;
   }
 
-  input:focus {
+  .create-form-title:focus {
     color: rgba($semi-white, 0.8);
   }
 

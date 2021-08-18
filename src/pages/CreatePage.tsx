@@ -1,6 +1,7 @@
-import { CreateForm } from "../components/CreateForm";
+import { CreateTodoForm } from "../components/CreateForm/CreateTodoForm";
+import { CreateNoteForm } from "../components/CreateForm/CreateNoteForm";
 import { ActionType } from "../types";
 
 export default function CreatePage({ type }: { type: ActionType }) {
-  return <CreateForm type={type} />;
+  return type === "note" ? <CreateNoteForm /> : <CreateTodoForm />;
 }

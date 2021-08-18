@@ -1,14 +1,13 @@
 import { v4 as uuid } from "uuid";
-import { useForm } from "../hooks/useForm";
-import { validateCreateForm } from "../helpers/validateForm";
-import { TimesCircleIcon } from "../images/times-circle-icon";
-import { ReturnIcon } from "../images/return-icon";
-import { ActionType } from "../types";
+import { useForm } from "../../hooks/useForm";
+import { validateNoteForm } from "../../helpers/validateForm";
+import { ActionType } from "../../types";
 import { useHistory } from "react-router-dom";
-import { addNote } from "../redux/actions/noteAction";
+import { addNote } from "../../redux/actions/noteAction";
 import { useDispatch } from "react-redux";
+import { CreateFormTools } from "./CreateFormTools";
 
-export const CreateForm = (props: { type: ActionType }) => {
+export const CreateNoteForm = () => {
   const { noteTitle, noteText, onInputChange, onReset } = useForm({
     noteTitle: "",
     noteText: "",
@@ -29,7 +28,7 @@ export const CreateForm = (props: { type: ActionType }) => {
         type: actionType,
         id: uuid(),
       };
-      const validData = validateCreateForm(data);
+      const validData = validateNoteForm(data);
       if (validData === true) {
         dispatch(
           addNote({
@@ -56,36 +55,18 @@ export const CreateForm = (props: { type: ActionType }) => {
     <div className="create-form">
       <input
         type="text"
+        className="create-form-title"
         placeholder="Escribe un título"
         value={noteTitle}
         onChange={({ target: { value } }) => onInputChange(value, "noteTitle")}
       />
       <textarea
         name=""
-        placeholder={
-          props.type === "note"
-            ? "Escribe una nota..."
-            : "Escribe una lista de tareas..."
-        }
+        placeholder="Escribe una nota..."
         value={noteText}
         onChange={({ target: { value } }) => onInputChange(value, "noteText")}
       ></textarea>
-      <div className="tool-buttons">
-        <button
-          className="tool-button"
-          onClick={() => handleActionClick(props.type, "save")}
-        >
-          <ReturnIcon />
-          <span>Guardar {props.type === "note" ? "nota" : "lista"}</span>
-        </button>
-        <button
-          className="tool-button"
-          onClick={() => handleActionClick(props.type, "cancel")}
-        >
-          <TimesCircleIcon />
-          <span>Descartar {props.type === "note" ? "nota" : "lista"}</span>
-        </button>
-      </div>
+      <CreateFormTools handleActionClick={handleActionClick} type="note" />
     </div>
   );
 };
