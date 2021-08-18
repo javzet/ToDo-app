@@ -1,29 +1,49 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { validateTodoForm } from "../../helpers/validateForm";
 import { useForm } from "../../hooks/useForm";
-import { TodoTask } from "../../types";
+import { Todo, TodoTask } from "../../types";
 import { CreateFormTools } from "./CreateFormTools";
+import { v4 as uuid } from "uuid";
+import { addTodo } from "../../redux/actions/todoAction";
+import { useHistory } from "react-router-dom";
 
 export const CreateTodoForm = () => {
   const [tasks, setTasks] = useState<TodoTask[]>([]);
-  const { todoListTitle, todoTask, onInputChange, onResetField, state } =
+  const { todoListTitle, todoTask, onInputChange, onResetField, onReset } =
     useForm({
       todoListTitle: "",
       todoTask: "",
     });
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const handleAddTask = () => {
-    setTasks([...tasks, { task: todoTask, completed: false }]);
-    validateTodoForm({ title: todoListTitle, type: "todo", data: tasks });
-    // onResetField("todoTask");
+    if (todoTask.trim().length > 0) {
+      setTasks([...tasks, { task: todoTask, completed: false }]);
+    }
+    onResetField("todoTask");
   };
 
-  // const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.table(state);
-  }, [state]);
+  const handleSubmit = (action: "save" | "cancel") => {
+    if (action === "save") {
+      const data: Todo = {
+        title: todoListTitle,
+        type: "todo",
+        data: tasks,
+      };
+      const isValidData = validateTodoForm(data);
+      if (isValidData) {
+        dispatch(addTodo(data));
+        onReset();
+        history.push("/");
+      }
+    } else {
+      onReset();
+      history.push("/");
+    }
+  };
 
   return (
     <div className="create-form">
@@ -45,10 +65,10 @@ export const CreateTodoForm = () => {
       <button onClick={handleAddTask}>Agregar tarea</button>
       <ul className="tasks-list">
         {tasks.map((task) => (
-          <li>{JSON.stringify(task)}</li>
+          <li key={uuid()}>{JSON.stringify(task)}</li>
         ))}
       </ul>
-      {/* <CreateFormTools handleActionClick={handleActionClick} type="todo" /> */}
+      <CreateFormTools handleActionClick={handleSubmit} type="todo" />
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import { DataType, Todo } from "../types";
+import { Note, Todo } from "../types";
 
-export function validateNoteForm(data: DataType): boolean {
+export function validateNoteForm(data: Note): boolean {
   const dataToValidate = {
     title: data.title.trim(),
     data: data.data.trim(),

@@ -1,7 +1,6 @@
-import { v4 as uuid } from "uuid";
 import { useForm } from "../../hooks/useForm";
 import { validateNoteForm } from "../../helpers/validateForm";
-import { ActionType } from "../../types";
+import { Note } from "../../types";
 import { useHistory } from "react-router-dom";
 import { addNote } from "../../redux/actions/noteAction";
 import { useDispatch } from "react-redux";
@@ -17,27 +16,16 @@ export const CreateNoteForm = () => {
 
   const history = useHistory();
 
-  const handleActionClick = (
-    actionType: ActionType,
-    action: "save" | "cancel"
-  ) => {
+  const handleSubmit = (action: "save" | "cancel") => {
     if (action === "save") {
-      const data = {
+      const data: Note = {
         title: noteTitle,
         data: noteText,
-        type: actionType,
-        id: uuid(),
+        type: "note",
       };
-      const validData = validateNoteForm(data);
-      if (validData === true) {
-        dispatch(
-          addNote({
-            title: data.title,
-            data: data.data,
-            type: "note",
-            id: data.id,
-          })
-        );
+      const isValidData = validateNoteForm(data);
+      if (isValidData) {
+        dispatch(addNote(data));
         onReset();
         history.push("/");
       }
@@ -66,7 +54,7 @@ export const CreateNoteForm = () => {
         value={noteText}
         onChange={({ target: { value } }) => onInputChange(value, "noteText")}
       ></textarea>
-      <CreateFormTools handleActionClick={handleActionClick} type="note" />
+      <CreateFormTools handleActionClick={handleSubmit} type="note" />
     </div>
   );
 };
