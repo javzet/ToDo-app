@@ -1,3 +1,6 @@
+import { FC } from "react";
+import { RouteProps } from "react-router-dom";
+
 export type CreationProps = {
   active: boolean;
   type: "todo" | "note" | "image" | "";
@@ -19,6 +22,7 @@ export type ElementList<E extends HTMLElement> = Array<E | null>;
 
 export type NoteReducerType = "ADD_NOTE" | "REMOVE_NOTE" | "UPDATE_NOTE";
 export type TodoReducerType = "ADD_TODO" | "REMOVE_TODO" | "UPDATE_TODO";
+export type AuthReducerType = "LOGIN" | "LOGOUT" | "REGISTER";
 
 export type NoteReducer = {
   type: NoteReducerType;
@@ -28,6 +32,11 @@ export type NoteReducer = {
 export type TodoReducer = {
   type: TodoReducerType;
   payload: Todo;
+};
+
+export type AuthReducer = {
+  type: AuthReducerType;
+  payload: any;
 };
 
 interface Create {
@@ -44,4 +53,9 @@ export interface Note extends Create {
 export interface Todo extends Create {
   type: "todo";
   data: TodoTask[];
+}
+
+export interface ProtectedRouteProps extends RouteProps {
+  isAuthenticated: boolean;
+  component: FC;
 }
