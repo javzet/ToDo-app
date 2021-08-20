@@ -1,17 +1,29 @@
+import axios from "axios";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { mLogin } from "../redux/actions/authAction";
 
 export const Register: FC = () => {
-
   const dispatch = useDispatch();
 
-  const handleClick = () => {
-    dispatch(mLogin({email: "test2@todo-app.com", password: "test"}));
-  }
+  const a = async () => {
+    const data = { email: "admin@todo.com", password: "admin" };
+    const response = await axios.post(
+      "https://todo-app-bkend.herokuapp.com/api/v1/login",
+      data
+    );
+    console.log(response);
+  };
 
-  return <>Register
-  
-    <button onClick={handleClick}>Login</button>
-  </>;
+  const handleClick = () => {
+    // dispatch(mLogin({ email: "test@todo.com", password: "test" }));
+    a();
+  };
+
+  return (
+    <>
+      Register
+      <button onClick={handleClick}>Login</button>
+    </>
+  );
 };
