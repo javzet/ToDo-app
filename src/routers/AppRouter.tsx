@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Redirect, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+  HashRouter,
+} from "react-router-dom";
 import { AuthRouter } from "./AuthRouter";
 import { TodoRoutes } from "./TodoRoutes";
 import { PrivateRoute } from "./PrivateRoute";
@@ -9,7 +14,7 @@ export const AppRouter = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   return (
-    <Router>
+    <HashRouter>
       <>
         <Switch>
           <PublicRoute
@@ -26,6 +31,6 @@ export const AppRouter = () => {
           <Redirect to="/auth/login" />
         </Switch>
       </>
-    </Router>
+    </HashRouter>
   );
 };
