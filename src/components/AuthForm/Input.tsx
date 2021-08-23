@@ -4,6 +4,7 @@ interface InputProps<F extends string> {
   field: F;
   placeholder?: string;
   onInputChange: (value: string, field: F) => void;
+  validation?: (value: string) => void;
 }
 
 export function Input<F extends string>({
@@ -12,6 +13,7 @@ export function Input<F extends string>({
   field,
   type,
   placeholder,
+  validation,
 }: InputProps<F>): JSX.Element {
   return (
     <input
@@ -19,7 +21,12 @@ export function Input<F extends string>({
       id={field}
       value={value}
       placeholder={placeholder ? placeholder : ""}
-      onChange={({ target: { value } }) => onInputChange(value, field)}
+      onChange={({ target: { value } }) => {
+        onInputChange(value, field);
+        if (validation) {
+          validation(value);
+        }
+      }}
     />
   );
 }
