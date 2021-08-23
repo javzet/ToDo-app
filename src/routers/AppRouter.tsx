@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Switch,
-  HashRouter,
-} from "react-router-dom";
+import { Redirect, Switch, HashRouter } from "react-router-dom";
 import { AuthRouter } from "./AuthRouter";
 import { TodoRoutes } from "./TodoRoutes";
 import { PrivateRoute } from "./PrivateRoute";

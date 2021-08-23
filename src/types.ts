@@ -36,7 +36,29 @@ export type TodoReducer = {
 
 export type AuthReducer = {
   type: AuthReducerType;
-  payload: any;
+  payload: AuthState;
+};
+
+export type UserStoreState = {
+  name: string;
+  id: string;
+  token: string;
+};
+
+export interface AuthState {
+  isAuthenticated: boolean;
+  user: UserStoreState | null;
+}
+
+export type LoginCredentials = {
+  email: string;
+  password: string;
+};
+
+export type RegisterCredentials = {
+  nombre: string;
+  email: string;
+  password: string;
 };
 
 interface Create {

@@ -1,0 +1,120 @@
+$auth-form-width: 60%;
+
+.auth {
+  $auth-height: calc(100vh - #{$appbar-height});
+  width: 100%;
+  height: $auth-height;
+  max-height: $auth-height;
+  min-height: $auth-height;
+}
+
+.auth-content {
+  width: min(80%, 1000px);
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-form {
+  margin: 0 auto;
+  width: $auth-form-width;
+  background-color: rgba($color: $semi-white, $alpha: 0.03);
+  border-radius: 0.8rem;
+  box-shadow: 1px 1px 0.3rem 0px rgba($color: #000000, $alpha: 0.6);
+  padding: 2rem 3rem;
+
+  .form-header {
+    text-align: center;
+    color: rgba($color: $semi-white, $alpha: 0.4);
+    // color: rgba(#2f74c0, 0.85);
+    font-size: 1.6rem;
+  }
+
+  .form-content > input + input {
+    margin-top: 1rem;
+  }
+
+  .form-content {
+    margin: 1.1rem 0;
+
+    input {
+      width: 100%;
+      border-bottom: 1px solid rgba($color: $semi-white, $alpha: 0.08);
+      padding: 0.6rem 0.8rem;
+      color: rgba($color: $semi-white, $alpha: 0.4);
+
+      transition: border 0.3s ease, color 0.3s ease;
+    }
+
+    input::placeholder {
+      color: rgba($color: $semi-white, $alpha: 0.2);
+    }
+
+    input:focus {
+      border-bottom: 1px solid rgba($color: $semi-white, $alpha: 0.2);
+      color: rgba($color: $semi-white, $alpha: 0.6);
+    }
+  }
+
+  .form-footer {
+    text-align: center;
+
+    button {
+      margin-top: 0.4rem;
+      background-color: rgba($color: $semi-white, $alpha: 0.03);
+      padding: 0.7rem 3rem;
+      border-radius: 0.4rem;
+      color: rgba($color: $semi-white, $alpha: 0.6);
+
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: rgba($color: $semi-white, $alpha: 0.06);
+    }
+
+    p {
+      margin-top: 1.2rem;
+      color: rgba($color: $semi-white, $alpha: 0.4);
+      font-size: 0.9rem;
+
+      a {
+        text-decoration: none;
+        color: rgba($color: $semi-white, $alpha: 0.6);
+        transition: color ease 0.3s;
+      }
+
+      a:hover {
+        color: rgba($color: $semi-white, $alpha: 0.8);
+      }
+    }
+  }
+}
+
+.auth-form-errors {
+  position: absolute;
+  top: 20%;
+  display: flex;
+  opacity: 0;
+  transform: translateX(-30%);
+  transition: opacity 1s ease, transform 3s ease;
+
+  width: 50%;
+  padding: 1.2rem;
+  background-color: rgba($semi-black, $alpha: 1);
+  border-radius: 0.6rem;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 0.25rem 0px rgba($color: #000000, $alpha: 0.7);
+
+  .errors {
+    width: 100%;
+  }
+}
+
+.auth-form-errors.show-errors {
+  opacity: 1;
+  transform: translateX(0%);
+}

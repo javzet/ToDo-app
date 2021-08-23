@@ -1,29 +1,72 @@
-import axios from "axios";
 import { FC } from "react";
-import { useDispatch } from "react-redux";
-import { mLogin } from "../redux/actions/authAction";
+import { Link } from "react-router-dom";
+import { AuthContent } from "../components/AuthContent";
+// import { useDispatch } from "react-redux";
+import { Form } from "../components/AuthForm/Form";
+import { Input } from "../components/AuthForm/Input";
+import { useForm } from "../hooks/useForm";
 
 export const Register: FC = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const a = async () => {
-    const data = { email: "admin@todo.com", password: "admin" };
-    const response = await axios.post(
-      "https://todo-app-bkend.herokuapp.com/api/v1/login",
-      data
-    );
-    console.log(response);
-  };
+  const { onInputChange, email, name, password, confirmPassword } = useForm({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const handleClick = () => {
-    // dispatch(mLogin({ email: "test@todo.com", password: "test" }));
-    a();
+  const handleSubmit = () => {
+    alert("jeeeejejejjejej aún no está");
   };
 
   return (
-    <>
-      Register
-      <button onClick={handleClick}>Login</button>
-    </>
+    <AuthContent>
+      <Form
+        type="register"
+        title="Create an account"
+        handleSubmit={handleSubmit}
+      >
+        <>
+          <Input
+            value={name}
+            onInputChange={onInputChange}
+            field="name"
+            placeholder="Your name"
+          />
+          <Input
+            value={email}
+            onInputChange={onInputChange}
+            field="email"
+            placeholder="Your e-mail"
+          />
+          <Input
+            value={password}
+            onInputChange={onInputChange}
+            field="password"
+            type="password"
+            placeholder="Type a password"
+          />
+          <Input
+            value={confirmPassword}
+            onInputChange={onInputChange}
+            field="confirmPassword"
+            type="password"
+            placeholder="Confirm your password"
+          />
+        </>
+        <>
+          <button>
+            <span>Sign Up</span>
+          </button>
+          <p>
+            Already have an account? <Link to="/auth/login">Sign in!</Link>{" "}
+          </p>
+        </>
+      </Form>
+      <div className="auth-form-errors">
+        <ul className="errors"></ul>
+      </div>
+    </AuthContent>
   );
 };

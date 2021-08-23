@@ -18,7 +18,14 @@
 
     h1 {
       margin-left: 0.4rem;
-      color: rgba($semi-white, 0.8);
+      color: rgba($semi-white, 0.7);
+      font-family: "Lato", sans-serif;
+      font-weight: 900;
+
+      small {
+        color: rgba($semi-white, 0.6);
+        font-size: 1rem;
+      }
     }
   }
 }
