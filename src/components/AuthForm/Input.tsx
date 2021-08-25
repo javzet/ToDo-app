@@ -3,8 +3,9 @@ interface InputProps<F extends string> {
   value: string;
   field: F;
   placeholder?: string;
+  ref?: React.Ref<HTMLInputElement>;
   onInputChange: (value: string, field: F) => void;
-  validation?: (value: string) => void;
+  callback?: (value: string) => void;
 }
 
 export function Input<F extends string>({
@@ -13,7 +14,8 @@ export function Input<F extends string>({
   field,
   type,
   placeholder,
-  validation,
+  callback,
+  ref,
 }: InputProps<F>): JSX.Element {
   return (
     <input
@@ -21,10 +23,11 @@ export function Input<F extends string>({
       id={field}
       value={value}
       placeholder={placeholder ? placeholder : ""}
+      ref={ref}
       onChange={({ target: { value } }) => {
         onInputChange(value, field);
-        if (validation) {
-          validation(value);
+        if (callback) {
+          callback(value);
         }
       }}
     />

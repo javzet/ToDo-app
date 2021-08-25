@@ -1,44 +1,92 @@
 import { Link } from "react-router-dom";
 import { AuthContent } from "../components/AuthContent";
+import { v4 as uuid } from "uuid";
 import { useDispatch } from "react-redux";
 import { Form } from "../components/AuthForm/Form";
 import { Input } from "../components/AuthForm/Input";
 import { useForm } from "../hooks/useForm";
 import { mRegister } from "../redux/actions/authAction";
-import { useEffect, useRef } from "react";
-import {
-  validateAuthFormFields,
-  validateMatchPasswords,
-} from "../helpers/validateAuthForm";
+import { useEffect, useRef, useState } from "react";
+import { regex } from "../helpers/regex";
+import { useValidateForm } from "../hooks/useValidateForm";
+import axios from "axios";
+
+interface Error {
+  identifier: string;
+  error: string;
+}
 
 export function Register(): JSX.Element {
   const dispatch = useDispatch();
+  const matchPasswordRef = useRef<HTMLDivElement>(null);
+  const [errors, setErrors] = useState<Error[]>([]);
 
-  const { onInputChange, email, name, password, confirmPassword, state } =
+  const { onInputChange, email, name, password, confirmPassword, onReset } =
     useForm({
-      name: "Javier",
-      email: "zacag1500@gmail.com",
-      password: "test3123Tasd*3",
-      confirmPassword: "tes",
+      name: "Frank",
+      email: "frank12todo@gmail.com",
+      password: "olaolaola315A",
+      confirmPassword: "olaolaola315A",
     });
 
-  const handleSubmit = () => {
-    const regex = {
-      name: /([áéíóúaA-zZÁÉÍÓÚ ]{2,})+/,
-      email:
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      password: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}/,
+  const { validate } = useValidateForm();
+
+  const handleSubmit = async () => {
+    const errs = validate(
+      {
+        name,
+        email,
+        password,
+      },
+      regex,
+      {
+        field: "password",
+        value: confirmPassword,
+      }
+    );
+    if (errs.length > 0) {
+      setErrors(errs);
+    } else {
+      setErrors([]);
+      // dispatch(mRegister({ email, nombre: name, password }));
+      fetch("https://todo-app-bkend.herokuapp.com/api/v1/usuario", {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+          nombre: name,
+          password,
+        }),
+      }).then((res) => {
+        console.log(res);
+      });
+      // console.log(response.data);
+      onReset();
+      console.log("Registro exitoso");
+    }
+  };
+
+  const handleErrorClick = (errorIdentifier: string) => {
+    document.getElementById(errorIdentifier)?.focus();
+  };
+
+  useEffect(() => {
+    const showErrors = () => {
+      if (errors.length > 0) {
+        matchPasswordRef.current?.classList.add("show-errors");
+        setTimeout(() => {
+          matchPasswordRef.current?.classList.remove("show-errors");
+        }, 3000);
+        if (errors.length === 1)
+          document.getElementById(errors[0].identifier)?.focus();
+      } else {
+        matchPasswordRef.current?.classList.remove("show-errors");
+      }
     };
-    let errors: any[] = [validateMatchPasswords(password, confirmPassword)];
-    // dispatch(mRegister({ email, nombre: name, password }));
-    validateMatchPasswords(password, confirmPassword);
-
-    console.log(validateAuthFormFields({ name, password, email }, regex));
-  };
-
-  const validation = (value: string) => {
-    console.log(value);
-  };
+    showErrors();
+    return () => {
+      showErrors();
+    };
+  }, [errors]);
 
   return (
     <AuthContent>
@@ -64,15 +112,14 @@ export function Register(): JSX.Element {
             value={password}
             onInputChange={onInputChange}
             field="password"
-            type="password"
+            type="text"
             placeholder="Type a password"
           />
           <Input
             value={confirmPassword}
             onInputChange={onInputChange}
-            validation={validation}
             field="confirmPassword"
-            type="password"
+            type="text"
             placeholder="Confirm your password"
           />
         </>
@@ -85,8 +132,18 @@ export function Register(): JSX.Element {
           </p>
         </>
       </Form>
-      <div className="auth-form-errors">
-        <ul className="errors"></ul>
+      <div className="auth-form-errors" ref={matchPasswordRef}>
+        <ul className="errors">
+          {errors.map((error) => (
+            <li
+              key={uuid()}
+              className="error"
+              onClick={() => handleErrorClick(error.identifier)}
+            >
+              {error.error}
+            </li>
+          ))}
+        </ul>
       </div>
     </AuthContent>
   );

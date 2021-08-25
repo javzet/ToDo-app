@@ -31,13 +31,14 @@ export const mLogin = (data: LoginCredentials) => {
   };
 };
 
-export const mRegister = (data: RegisterCredentials) => {
+export const mRegister = async (data: RegisterCredentials) => {
   return async (dispatch: Dispatch<any>) => {
     try {
       const response = await axios.post(
         "https://todo-app-bkend.herokuapp.com/api/v1/usuario",
         data
       );
+      console.log("a");
       dispatch(
         login({
           isAuthenticated: true,
