@@ -10,7 +10,7 @@ export function Login(): JSX.Element {
 
   const { onInputChange, email, password } = useForm({
     email: "",
-    password: "",
+    password: ""
   });
 
   const handleSubmit = () => {
@@ -44,7 +44,7 @@ export function Login(): JSX.Element {
             <span>Sign In</span>
           </button>
           <p>
-            Don't have an account? <Link to="/auth/register">Sign up!</Link>{" "}
+           {" Don't have an account?"} <Link to="/auth/register">Sign up!</Link>{" "}
           </p>
         </>
       </Form>

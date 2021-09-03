@@ -10,14 +10,16 @@ export default function Main() {
   );
   return (
     <div className="content">
-      {notes.length === 0 ? (
+      {notes.length === 0
+        ? (
         <NoDataComponent />
-      ) : (
+          )
+        : (
         <>
           <CreateButton />
           <DataGrid data={notes} />
         </>
-      )}
+          )}
     </div>
   );
 }

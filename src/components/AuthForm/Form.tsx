@@ -11,7 +11,7 @@ export function Form({
   type,
   children,
   title,
-  handleSubmit,
+  handleSubmit
 }: AuthFormProps): JSX.Element {
   return (
     <form

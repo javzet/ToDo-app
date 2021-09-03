@@ -11,11 +11,13 @@ export const PrivateRoute: FC<ProtectedRouteProps> = ({
     <Route
       {...rest}
       component={(props: any) =>
-        isAuthenticated ? (
+        isAuthenticated
+          ? (
           <Component {...props} />
-        ) : (
+            )
+          : (
           <Redirect to="/auth/login" />
-        )
+            )
       }
     />
   );

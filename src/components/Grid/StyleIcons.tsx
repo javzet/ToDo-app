@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { useLayoutEffect, useRef, useState, useEffect, RefObject } from "react";
 import { BarsIcon } from "../../images/bars-icon";
 import { GridIcon } from "../../images/grid-icon";
 import { switchClassesElement } from "../../helpers/switchClassesElement";
@@ -6,9 +6,9 @@ import { useActionListElement } from "../../hooks/useActionListElement";
 import { ElementList } from "../../types";
 
 export const StyleIcons = ({
-  gridRef,
+  gridRef
 }: {
-  gridRef: React.RefObject<HTMLDivElement>;
+  gridRef:RefObject<HTMLDivElement>;
 }) => {
   const GridButtonStyleRef = useRef<HTMLButtonElement>(null);
   const ColumnButtonStyleRef = useRef<HTMLButtonElement>(null);
@@ -22,7 +22,7 @@ export const StyleIcons = ({
     setElementList([
       GridButtonStyleRef.current,
       ColumnButtonStyleRef.current,
-      BarsButtonStyleRef.current,
+      BarsButtonStyleRef.current
     ]);
   }, []);
 

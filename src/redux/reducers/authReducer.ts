@@ -2,7 +2,7 @@ import { AuthReducer, AuthState } from "../../types";
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  user: null,
+  user: null
 };
 
 const authReducer = (state = initialState, action: AuthReducer): AuthState => {
@@ -13,8 +13,8 @@ const authReducer = (state = initialState, action: AuthReducer): AuthState => {
         user: {
           id: action.payload.user!.id,
           name: action.payload.user!.name,
-          token: action.payload.user!.token,
-        },
+          token: action.payload.user!.token
+        }
       };
     case "LOGOUT":
       return { isAuthenticated: false, user: null };
@@ -24,8 +24,8 @@ const authReducer = (state = initialState, action: AuthReducer): AuthState => {
         user: {
           id: action.payload.user!.id,
           name: action.payload.user!.name,
-          token: action.payload.user!.token,
-        },
+          token: action.payload.user!.token
+        }
       };
     default:
       return state;

@@ -13,7 +13,7 @@ export const CreateTodoForm = () => {
   const { todoListTitle, todoTask, onInputChange, onResetField, onReset } =
     useForm({
       todoListTitle: "",
-      todoTask: "",
+      todoTask: ""
     });
 
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export const CreateTodoForm = () => {
       const data: Todo = {
         title: todoListTitle,
         type: "todo",
-        data: tasks,
+        data: tasks
       };
       const isValidData = validateTodoForm(data);
       if (isValidData) {
