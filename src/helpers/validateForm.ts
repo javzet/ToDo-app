@@ -3,7 +3,7 @@ import { Note, Todo } from "../types";
 export function validateNoteForm(data: Note): boolean {
   const dataToValidate = {
     title: data.title.trim(),
-    data: data.data.trim(),
+    data: data.data.trim()
   };
 
   if (dataToValidate.title === undefined || dataToValidate.title === "") {
@@ -18,7 +18,7 @@ export function validateNoteForm(data: Note): boolean {
 export function validateTodoForm(data: Todo): boolean {
   const dataToValidate = {
     title: data.title.trim(),
-    data: data.data.map((d) => d.task.trim()),
+    data: data.data.map((d) => d.task.trim())
   };
 
   const validateTaks = (tasks: string[]) => {

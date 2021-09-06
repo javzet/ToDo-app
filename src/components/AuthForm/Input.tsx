@@ -15,14 +15,14 @@ export function Input<F extends string>({
   type,
   placeholder,
   callback,
-  ref,
+  ref
 }: InputProps<F>): JSX.Element {
   return (
     <input
-      type={type ? type : "text"}
+      type={type || "text"}
       id={field}
       value={value}
-      placeholder={placeholder ? placeholder : ""}
+      placeholder={placeholder || ""}
       ref={ref}
       onChange={({ target: { value } }) => {
         onInputChange(value, field);

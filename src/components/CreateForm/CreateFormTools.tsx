@@ -4,7 +4,7 @@ import { ActionType } from "../../types";
 
 export const CreateFormTools = ({
   type,
-  handleActionClick,
+  handleActionClick
 }: {
   handleActionClick: (action: "save" | "cancel") => void;
   type: ActionType;

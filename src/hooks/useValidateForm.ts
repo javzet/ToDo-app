@@ -3,8 +3,8 @@ interface ErrorList {
   error: string;
 }
 
-type Regex<T> = {
-  [P in keyof T]: RegExp;
+type Regex = {
+  [key: string]: RegExp;
 };
 
 type Form = {
@@ -18,27 +18,21 @@ export function useValidateForm() {
 
   const validate = <T extends Form>(
     form: T,
-    regex: Regex<T>,
-    confirmation?: { field: string; value: string },
-    errors?: ErrorList[]
+    regex: Regex,
+    confirmation?: { field: string; value: string }
   ): ErrorList[] => {
     let _errorList: ErrorList[] = [];
 
     for (const key in form) {
-      if (form.hasOwnProperty(key)) {
-        const error = validateField(form[key], regex[key]);
-        const searchError = errors?.find(
-          (error) => error.identifier === key
-        )?.error;
-        if (!error) {
-          _errorList = [
-            ..._errorList,
-            {
-              identifier: key,
-              error: searchError ? searchError : `${key} is not valid`,
-            },
-          ];
-        }
+      const error = validateField(form[key], regex[key]);
+      if (!error) {
+        _errorList = [
+          ..._errorList,
+          {
+            identifier: key,
+            error: `${key} is not valid`
+          }
+        ];
       }
     }
 
@@ -48,8 +42,8 @@ export function useValidateForm() {
           ..._errorList,
           {
             identifier: confirmation.field,
-            error: `The ${confirmation.field}s doesn't match`,
-          },
+            error: `The ${confirmation.field}s doesn't match`
+          }
         ];
       }
     }
@@ -57,6 +51,6 @@ export function useValidateForm() {
   };
 
   return {
-    validate,
+    validate
   };
 }

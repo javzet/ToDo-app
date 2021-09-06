@@ -9,7 +9,7 @@ import { CreateFormTools } from "./CreateFormTools";
 export const CreateNoteForm = () => {
   const { noteTitle, noteText, onInputChange, onReset } = useForm({
     noteTitle: "",
-    noteText: "",
+    noteText: ""
   });
 
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const CreateNoteForm = () => {
       const data: Note = {
         title: noteTitle,
         data: noteText,
-        type: "note",
+        type: "note"
       };
       const isValidData = validateNoteForm(data);
       if (isValidData) {

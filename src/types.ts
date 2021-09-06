@@ -24,21 +24,6 @@ export type NoteReducerType = "ADD_NOTE" | "REMOVE_NOTE" | "UPDATE_NOTE";
 export type TodoReducerType = "ADD_TODO" | "REMOVE_TODO" | "UPDATE_TODO";
 export type AuthReducerType = "LOGIN" | "LOGOUT" | "REGISTER";
 
-export type NoteReducer = {
-  type: NoteReducerType;
-  payload: Note;
-};
-
-export type TodoReducer = {
-  type: TodoReducerType;
-  payload: Todo;
-};
-
-export type AuthReducer = {
-  type: AuthReducerType;
-  payload: AuthState;
-};
-
 export type UserStoreState = {
   name: string;
   id: string;
@@ -63,7 +48,7 @@ export type RegisterCredentials = {
 
 interface Create {
   title: string;
-  local_id?: string;
+  localId?: string;
   id?: string;
 }
 
@@ -80,4 +65,33 @@ export interface Todo extends Create {
 export interface ProtectedRouteProps extends RouteProps {
   isAuthenticated: boolean;
   component: FC;
+}
+
+export type NoteReducer = {
+  type: NoteReducerType;
+  payload: Note;
+};
+
+export type TodoReducer = {
+  type: TodoReducerType;
+  payload: Todo;
+};
+
+export type AuthReducer = {
+  type: AuthReducerType;
+  payload: AuthState;
+};
+
+export interface Error {
+  identifier: string;
+  error: string;
+}
+
+export interface ActionUI {
+  type: "SET_ERROR" | "CLEAR_ERROR" | "CLEAR_ALL_ERRORS" | "SET_ERRORS";
+  payload: Error;
+}
+
+export interface uiState {
+  errors: Error[];
 }

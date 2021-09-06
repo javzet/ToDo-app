@@ -6,10 +6,10 @@ export function validateAuthFormFields<
   Regex extends ObjectKeyString<RegExp>
 >(fields: Fields, regex: Regex) {
   let validatedFields: { [field: string]: boolean } = {};
-  for (let field in fields) {
+  for (const field in fields) {
     validatedFields = {
       ...validatedFields,
-      [field]: regex[field].test(fields[field]),
+      [field]: regex[field].test(fields[field])
     };
   }
   return validatedFields;

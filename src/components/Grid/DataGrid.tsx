@@ -20,11 +20,13 @@ export const DataGrid = ({ data }: DataGridProps) => {
       <StyleIcons gridRef={gridDataRef} />
       <div className="data-grid grid" id="data-grid" ref={gridDataRef}>
         {data.map((item) =>
-          item.type === "note" ? (
+          item.type === "note"
+            ? (
             <DataGridNote {...item} key={item.id} />
-          ) : (
+              )
+            : (
             <DataGridTodo {...item} key={item.id} />
-          )
+              )
         )}
       </div>
     </>

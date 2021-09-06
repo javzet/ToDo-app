@@ -6,6 +6,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
 
 export const AppRouter = () => {
+  // eslint-disable-next-line no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   return (

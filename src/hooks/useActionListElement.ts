@@ -19,6 +19,6 @@ export function useActionListElement<EL extends HTMLElement>(
   };
 
   return {
-    switchActiveClassBetweenElements,
+    switchActiveClassBetweenElements
   };
 }

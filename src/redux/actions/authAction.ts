@@ -4,8 +4,9 @@ import {
   AuthReducer,
   AuthState,
   LoginCredentials,
-  RegisterCredentials,
+  RegisterCredentials
 } from "../../types";
+import { addError } from "./uiAction";
 
 // Auth action middlewares
 export const mLogin = (data: LoginCredentials) => {
@@ -21,36 +22,48 @@ export const mLogin = (data: LoginCredentials) => {
           user: {
             id: response.data.usuario._id,
             token: response.data.token,
-            name: response.data.usuario.nombre,
-          },
+            name: response.data.usuario.nombre
+          }
         })
       );
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        console.log(error.response);
+        dispatch(
+          addError({ error: error.response?.data.message, identifier: "login" })
+        );
+      }
     }
   };
 };
 
-export const mRegister = async (data: RegisterCredentials) => {
+export const mRegister = (data: RegisterCredentials) => {
   return async (dispatch: Dispatch<any>) => {
     try {
       const response = await axios.post(
         "https://todo-app-bkend.herokuapp.com/api/v1/usuario",
         data
       );
-      console.log("a");
       dispatch(
         login({
           isAuthenticated: true,
           user: {
             id: response.data.usuario._id,
             token: response.data.token,
-            name: response.data.usuario.nombre,
-          },
+            name: response.data.usuario.nombre
+          }
         })
       );
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        console.log(error.response);
+        dispatch(
+          addError({
+            error: error.response?.data.message,
+            identifier: "register"
+          })
+        );
+      }
     }
   };
 };
@@ -58,13 +71,13 @@ export const mRegister = async (data: RegisterCredentials) => {
 export const login = (data: AuthState): AuthReducer => {
   return {
     type: "LOGIN",
-    payload: data,
+    payload: data
   };
 };
 
 export const register = (data: AuthState): AuthReducer => {
   return {
     type: "REGISTER",
-    payload: data,
+    payload: data
   };
 };
