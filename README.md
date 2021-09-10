@@ -1,5 +1,6 @@
 # Simple TODO App
 This project was made with React with Typescript.
+View working project https://javzet.github.io/ToDo-app/
 
 ## What is it about?
 This a simple application of notes, you can create, 
