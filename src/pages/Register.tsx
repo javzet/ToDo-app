@@ -19,10 +19,10 @@ export function Register(): JSX.Element {
 
   const { onInputChange, email, name, password, confirmPassword, onReset } =
     useForm({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: ""
+      name: "Demo",
+      email: "demo@todo.com",
+      password: "Demo_Account15",
+      confirmPassword: "Demo_Account15"
     });
 
   const handleSubmit = () => {

@@ -20,11 +20,17 @@ export interface AuthLoginResponseError {
 }
 
 function authResponseError<T = any>(
+  dispatch: Dispatch,
   error: any,
-  handler: (error: AxiosError<T>
+  handler: (error: AxiosError<T>,
 ) => void) {
   if (axios.isAxiosError(error)) {
-    handler(error);
+    if (!error.response) {
+      const newError = new ErrorForm("server", "Server error, please try again later or contact with the developer");
+      dispatch(addError(newError));
+    } else {
+      handler(error);
+    }
   } else {
     console.error(error);
   }
@@ -46,7 +52,7 @@ export const mLogin = (data: LoginCredentials) => {
         })
       );
     } catch (error) {
-      authResponseError<AuthLoginResponseError>(error, (err) => {
+      authResponseError<AuthLoginResponseError>(dispatch, error, (err) => {
         const newError = new ErrorForm("login", err.response!.data.err.message);
         dispatch(addError(newError));
       });
@@ -69,7 +75,7 @@ export const mRegister = (data: RegisterCredentials) => {
         })
       );
     } catch (error) {
-      authResponseError<AuthRegisterResponseError>(error, (err) => {
+      authResponseError<AuthRegisterResponseError>(dispatch, error, (err) => {
         const newError = new ErrorForm("register", err.response!.data.message);
         dispatch(addError(newError));
       });
