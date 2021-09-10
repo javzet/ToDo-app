@@ -15,7 +15,7 @@ $ cd ToDo-app/
 $ yarn install
 ```
 
-You can use npm too! Make sure that you have installed [ESLint](https://eslint.org/) installed or another liner to keep the code style, I this case, we use [Javascript Standard Style](https://standardjs.com/)works with typescript too. Also I added some
+You can use npm too! Make sure that you have installed [ESLint](https://eslint.org/) installed or another liner to keep the code style, I this case, we use [Javascript Standard Style](https://standardjs.com/) works with typescript too. Also I added some
 custom code styles, you can view them at https://github.com/javzet/ToDo-app/blob/main/.eslintrc.js
 
 Negtune
