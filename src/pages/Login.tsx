@@ -18,8 +18,8 @@ export function Login(): JSX.Element {
   const errorsRef = useRef<HTMLDivElement>(null);
 
   const { onInputChange, email, password, onReset } = useForm({
-    email: "frank12todo@gmail.com",
-    password: "olaolaola315A"
+    email: "",
+    password: ""
   });
 
   const handleSubmit = () => {

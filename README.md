@@ -9,6 +9,13 @@ delete and edit notes and todo lists.
 ## About the project
 The project is built for learning and experimentation purposes intended for work portfolios.
 
+### Notes
+You can test the application by [creating an account](https://javzet.github.io/ToDo-app/#/auth/register) or [using the demo account](https://javzet.github.io/ToDo-app/#/auth/login):
+```
+demo@todo.com - demo_account
+```
+
+
 ### Installation
 ```
 $ git clone https://github.com/javzet/ToDo-app.git
