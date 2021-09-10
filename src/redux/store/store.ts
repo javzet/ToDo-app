@@ -1,15 +1,14 @@
-import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+import authErrorReducer from "../reducers/authErrorsReducer";
 import authReducer from "../reducers/authReducer";
 import noteReducer from "../reducers/noteReducer";
 import todoReducer from "../reducers/todoReducer";
-import uiReducer from "../reducers/uiReducer";
 import loadStore from "./loadStore";
 import saveState from "./saveState";
 
 declare global {
-  // eslint-disable-next-line no-unused-vars
-  interface Window {
+  export interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;
   }
 }
@@ -25,7 +24,7 @@ const reducers = combineReducers({
   notes: noteReducer,
   todos: todoReducer,
   auth: authReducer,
-  ui: uiReducer
+  errors: authErrorReducer
 });
 
 export const store = createStore(

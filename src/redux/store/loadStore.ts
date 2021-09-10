@@ -1,9 +1,6 @@
-import { Note, Todo } from "../../types";
+import { TodoStateStored } from "../../types";
 
-type LoadState = {
-  notes: Array<Note>;
-  todos: Array<Todo>;
-};
+type LoadState = TodoStateStored;
 
 export default function loadStore(): LoadState | {} {
   try {

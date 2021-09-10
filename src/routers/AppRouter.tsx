@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Redirect, Switch, HashRouter } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { HashRouter, Redirect, Switch } from "react-router-dom";
+import { TodoState } from "../types";
 import { AuthRouter } from "./AuthRouter";
-import { TodoRoutes } from "./TodoRoutes";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
+import { TodoRoutes } from "./TodoRoutes";
 
 export const AppRouter = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const { isAuthenticated } = useSelector((state: TodoState) => state.auth);
 
   return (
     <HashRouter>
@@ -16,11 +16,11 @@ export const AppRouter = () => {
           <PublicRoute
             path="/auth"
             component={AuthRouter}
-            isAuthenticated={isLoggedIn}
+            isAuthenticated={isAuthenticated}
           />
           <PrivateRoute
             component={TodoRoutes}
-            isAuthenticated={isLoggedIn}
+            isAuthenticated={isAuthenticated}
             path="/"
             exact
           />

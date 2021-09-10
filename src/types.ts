@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { RouteProps } from "react-router-dom";
+import { ErrorForm } from "./Models/AuthError";
 
 export type CreationProps = {
   active: boolean;
@@ -23,6 +24,7 @@ export type ElementList<E extends HTMLElement> = Array<E | null>;
 export type NoteReducerType = "ADD_NOTE" | "REMOVE_NOTE" | "UPDATE_NOTE";
 export type TodoReducerType = "ADD_TODO" | "REMOVE_TODO" | "UPDATE_TODO";
 export type AuthReducerType = "LOGIN" | "LOGOUT" | "REGISTER";
+export type UIReducerType = "SET_ERROR" | "CLEAR_ERROR" | "CLEAR_ALL_ERRORS" | "SET_ERRORS";
 
 export type UserStoreState = {
   name: string;
@@ -30,9 +32,10 @@ export type UserStoreState = {
   token: string;
 };
 
-export interface AuthState {
+export interface authState {
   isAuthenticated: boolean;
-  user: UserStoreState | null;
+  name: string;
+  token: string;
 }
 
 export type LoginCredentials = {
@@ -77,9 +80,9 @@ export type TodoReducer = {
   payload: Todo;
 };
 
-export type AuthReducer = {
+export type ActionAuth = {
   type: AuthReducerType;
-  payload: AuthState;
+  payload: authState;
 };
 
 export interface Error {
@@ -87,11 +90,19 @@ export interface Error {
   error: string;
 }
 
-export interface ActionUI {
-  type: "SET_ERROR" | "CLEAR_ERROR" | "CLEAR_ALL_ERRORS" | "SET_ERRORS";
-  payload: Error;
+export interface actionAuthError {
+  type: UIReducerType;
+  payload: ErrorForm[];
 }
 
-export interface uiState {
-  errors: Error[];
+export type authErrorState = ErrorForm[];
+
+export interface TodoStateStored {
+  notes: Array<Note>;
+  todos: Array<Todo>;
+  auth: authState;
+}
+
+export interface TodoState extends TodoStateStored {
+  errors: ErrorForm[];
 }

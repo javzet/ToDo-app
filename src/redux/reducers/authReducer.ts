@@ -1,31 +1,24 @@
-import { AuthReducer, AuthState } from "../../types";
+import { ActionAuth, authState } from "../../types";
 
-const initialState: AuthState = {
-  isAuthenticated: false,
-  user: null
-};
+const initialState: authState = {
+  isAuthenticated: false
+} as authState;
 
-const authReducer = (state = initialState, action: AuthReducer): AuthState => {
+const authReducer = (state = initialState, action: ActionAuth): authState => {
   switch (action.type) {
     case "LOGIN":
       return {
         isAuthenticated: true,
-        user: {
-          id: action.payload.user!.id,
-          name: action.payload.user!.name,
-          token: action.payload.user!.token
-        }
+        name: action.payload.name,
+        token: action.payload.token
       };
     case "LOGOUT":
-      return { isAuthenticated: false, user: null };
+      return { isAuthenticated: false } as authState;
     case "REGISTER":
       return {
         isAuthenticated: true,
-        user: {
-          id: action.payload.user!.id,
-          name: action.payload.user!.name,
-          token: action.payload.user!.token
-        }
+        name: action.payload.name,
+        token: action.payload.token
       };
     default:
       return state;

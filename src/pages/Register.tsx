@@ -1,54 +1,41 @@
-import { Link } from "react-router-dom";
-import { AuthContent } from "../components/AuthContent";
-import { v4 as uuid } from "uuid";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { v4 as uuid } from "uuid";
+import { AuthContent } from "../components/AuthContent";
 import { Form } from "../components/AuthForm/Form";
 import { Input } from "../components/AuthForm/Input";
+import { regex } from "../helpers/regex";
+import { ValidationForm } from "../helpers/validateAuthForm";
 import { useForm } from "../hooks/useForm";
 import { mRegister } from "../redux/actions/authAction";
-import { useEffect, useRef } from "react";
-import { regex } from "../helpers/regex";
-import { useValidateForm } from "../hooks/useValidateForm";
-import { addErrors, removeErrors } from "../redux/actions/uiAction";
+import { addErrors, removeErrors } from "../redux/actions/authErrorsAction";
+import { TodoState } from "../types";
 
 export function Register(): JSX.Element {
   const dispatch = useDispatch();
-  const errors = useSelector((state: { ui: any }) => state.ui.errors);
+  const errors = useSelector((state: TodoState) => state.errors);
   const matchPasswordRef = useRef<HTMLDivElement>(null);
-  // const [errors, setErrors] = useState<Error[]>([]);
 
   const { onInputChange, email, name, password, confirmPassword, onReset } =
     useForm({
-      name: "Frank",
-      email: "frank12todo@gmail.com",
-      password: "olaolaola315A",
-      confirmPassword: "olaolaola315A"
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: ""
     });
 
-  const { validate } = useValidateForm();
+  const handleSubmit = () => {
+    const errors = new ValidationForm({ name, email, password }, regex)
+      .validateForm({ field: "password", value: confirmPassword })
+      .getErrors();
 
-  const handleSubmit = async () => {
-    const errs = validate(
-      {
-        name,
-        email,
-        password
-      },
-      regex,
-      {
-        field: "password",
-        value: confirmPassword
-      }
-    );
-    if (errs.length > 0) {
-      dispatch(addErrors(errs));
-      // setErrors(errs);
+    if (errors.length > 0) {
+      dispatch(addErrors(errors));
     } else {
-      // setErrors([]);
       dispatch(removeErrors());
       dispatch(mRegister({ email, nombre: name, password }));
       onReset();
-      console.log("Registro exitoso");
     }
   };
 
@@ -64,7 +51,7 @@ export function Register(): JSX.Element {
           matchPasswordRef.current?.classList.remove("show-errors");
         }, 3000);
         if (errors.length === 1) {
-          document.getElementById(errors[0].identifier)?.focus();
+          document.getElementById(errors[0].getError().identifier)?.focus();
         }
       } else {
         matchPasswordRef.current?.classList.remove("show-errors");
@@ -100,14 +87,14 @@ export function Register(): JSX.Element {
             value={password}
             onInputChange={onInputChange}
             field="password"
-            type="text"
+            type="password"
             placeholder="Type a password"
           />
           <Input
             value={confirmPassword}
             onInputChange={onInputChange}
             field="confirmPassword"
-            type="text"
+            type="password"
             placeholder="Confirm your password"
           />
         </>

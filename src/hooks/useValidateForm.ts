@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 interface ErrorList {
   identifier: string;
   error: string;
@@ -12,8 +14,22 @@ type Form = {
 };
 
 export function useValidateForm() {
+  const fieldsValidated = useRef<number>(0);
   const validateField = (data: string, regex: RegExp) => {
     return regex.test(data);
+  };
+
+  console.log(fieldsValidated.current);
+
+  const verifyIfErrorExists = (errors: ErrorList[], key: string) => {
+    const existError = errors.find((error) => error.identifier !== key);
+
+    if (fieldsValidated.current < 1) {
+      return true;
+    } else if (existError) {
+      console.log(existError);
+      return false;
+    }
   };
 
   const validate = <T extends Form>(
@@ -26,15 +42,20 @@ export function useValidateForm() {
     for (const key in form) {
       const error = validateField(form[key], regex[key]);
       if (!error) {
-        _errorList = [
-          ..._errorList,
-          {
-            identifier: key,
-            error: `${key} is not valid`
-          }
-        ];
+        fieldsValidated.current++;
+        if (verifyIfErrorExists(_errorList, key)) {
+          _errorList = [
+            ..._errorList,
+            {
+              identifier: key,
+              error: `${key} is not valid`
+            }
+          ];
+        }
       }
     }
+
+    console.log(_errorList);
 
     if (confirmation) {
       if (!(form[confirmation.field] === confirmation.value)) {

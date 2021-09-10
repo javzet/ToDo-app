@@ -1,12 +1,34 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Dispatch } from "redux";
+import { ErrorForm } from "../../Models/AuthError";
 import {
-  AuthReducer,
-  AuthState,
+  ActionAuth,
+  authState,
   LoginCredentials,
   RegisterCredentials
 } from "../../types";
-import { addError } from "./uiAction";
+import { addError } from "./authErrorsAction";
+
+export interface AuthRegisterResponseError {
+  ok: boolean;
+  message: string;
+}
+
+export interface AuthLoginResponseError {
+  ok: boolean;
+  err: { message: string }
+}
+
+function authResponseError<T = any>(
+  error: any,
+  handler: (error: AxiosError<T>
+) => void) {
+  if (axios.isAxiosError(error)) {
+    handler(error);
+  } else {
+    console.error(error);
+  }
+}
 
 // Auth action middlewares
 export const mLogin = (data: LoginCredentials) => {
@@ -19,20 +41,15 @@ export const mLogin = (data: LoginCredentials) => {
       dispatch(
         login({
           isAuthenticated: true,
-          user: {
-            id: response.data.usuario._id,
-            token: response.data.token,
-            name: response.data.usuario.nombre
-          }
+          token: response.data.token,
+          name: response.data.usuario.nombre
         })
       );
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log(error.response);
-        dispatch(
-          addError({ error: error.response?.data.message, identifier: "login" })
-        );
-      }
+      authResponseError<AuthLoginResponseError>(error, (err) => {
+        const newError = new ErrorForm("login", err.response!.data.err.message);
+        dispatch(addError(newError));
+      });
     }
   };
 };
@@ -47,35 +64,27 @@ export const mRegister = (data: RegisterCredentials) => {
       dispatch(
         login({
           isAuthenticated: true,
-          user: {
-            id: response.data.usuario._id,
-            token: response.data.token,
-            name: response.data.usuario.nombre
-          }
+          token: response.data.token,
+          name: response.data.usuario.nombre
         })
       );
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log(error.response);
-        dispatch(
-          addError({
-            error: error.response?.data.message,
-            identifier: "register"
-          })
-        );
-      }
+      authResponseError<AuthRegisterResponseError>(error, (err) => {
+        const newError = new ErrorForm("register", err.response!.data.message);
+        dispatch(addError(newError));
+      });
     }
   };
 };
 
-export const login = (data: AuthState): AuthReducer => {
+export const login = (data: authState): ActionAuth => {
   return {
     type: "LOGIN",
     payload: data
   };
 };
 
-export const register = (data: AuthState): AuthReducer => {
+export const register = (data: authState): ActionAuth => {
   return {
     type: "REGISTER",
     payload: data
